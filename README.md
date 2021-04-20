@@ -13,3 +13,6 @@ The whole documentation is published [here](https://fesaroti.github.io/documenta
 - [ ] Information sharing about IoT-sensor setups
 - [ ] Marketplace
 - [ ] IoT setup GUI
+- [ ] Database Setup
+- [ ] AWS setup
+- [ ] RPI setup
