@@ -437,9 +437,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="book">
 <div id="header">
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_orion_context_broker_ld_the_brain">Orion Context Broker LD (the brain)</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div class="sect1">
@@ -452,7 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -490,7 +497,22 @@ Use the following docker-compose.yml file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">Unresolved directive in index.adoc - include::files/docker-compose.yml[docker-compose.yml]</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">version: "3.9"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:3.4
+    command: --nojournal
+  orion:
+    image: fiware/orion-ld
+    links:
+      - mongo
+    ports:
+      - "1026:1026"
+    environment:
+      - ORIONLD_MONGO_HOST=mongo
+      - ORIONLD_DISABLE_FILE_LOG=TRUE
+      - ORIONLD_MULTI_SERVICE=TRUE</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -498,7 +520,7 @@ Use the following docker-compose.yml file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">Unresolved directive in index.adoc - include::files/get-ocb-version.sh[]</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">curl http://localhost:1026/version</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -506,7 +528,17 @@ Use the following docker-compose.yml file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">Unresolved directive in index.adoc - include::files/get-ocb-version-response.json[]</code></pre>
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "orionld version": "post-v0.7",
+  "orion version":   "1.15.0-next",
+  "uptime":          "0 d, 0 h, 0 m, 18 s",
+  "git_hash":        "nogitversion",
+  "compile_time":    "Thu Mar 25 14:25:20 UTC 2021",
+  "compiled_by":     "root",
+  "compiled_in":     "buildkitsandbox",
+  "release_date":    "Thu Mar 25 14:25:20 UTC 2021",
+  "doc":             "https://fiware-orion.readthedocs.org/en/master/"
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -514,7 +546,23 @@ Use the following docker-compose.yml file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">Unresolved directive in index.adoc - include::files/create-two-entities-different-fiware-service.sh[]</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">curl -X POST http://localhost:1026/ngsi-ld/v1/entities -H 'content-type: application/ld+json' -H 'fiware-service: hamburg' --data '{
+    "id": "urn:ngsi-ld:Building:store001",
+    "type": "Building",
+    "@context": [
+        "https://fiware.github.io/data-models/context.jsonld",
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
+    ]
+}'
+
+curl -X POST http://localhost:1026/ngsi-ld/v1/entities -H 'content-type: application/ld+json' -H 'fiware-service: berlin' --data '{
+    "id": "urn:ngsi-ld:Building:store001",
+    "type": "Building",
+    "@context": [
+        "https://fiware.github.io/data-models/context.jsonld",
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
+    ]
+}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -522,7 +570,7 @@ Use the following docker-compose.yml file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">Unresolved directive in index.adoc - include::files/exec-into-mongo-conatiner.sh[]</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">docker exec -it mongo bash</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -530,7 +578,8 @@ Use the following docker-compose.yml file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">Unresolved directive in index.adoc - include::files/show-databases-from-mongo.sh[]</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">mongo
+show dbs</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -538,18 +587,22 @@ Use the following docker-compose.yml file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-txt" data-lang="txt">Unresolved directive in index.adoc - include::files/show-databases-from-mongo-response.txt[]</code></pre>
+<pre class="highlight"><code class="language-txt" data-lang="txt">admin          0.000GB
+local          0.000GB
+orion          0.000GB
+orion-berlin   0.000GB
+orion-hamburg  0.000GB</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>orion</code> database is for an empty <code>fiware-service</code>. For more examples and further reading click at this link: <a href="https://fiware-academy.readthedocs.io/en/latest/core/orion-ld/index.html" class="bare">https://fiware-academy.readthedocs.io/en/latest/core/orion-ld/index.html</a></p>
+<p>The <code>orion</code> database is for an empty <code>fiware-service</code>. For more examples and further reading click at this link: <a href="https://fiware-academy.readthedocs.io/en/latest/core/index.html" class="bare">https://fiware-academy.readthedocs.io/en/latest/core/index.html</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-20 18:51:03 UTC
+Last updated 2021-04-20 19:13:22 UTC
 </div>
 </div>
 </body>

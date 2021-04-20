@@ -1,59 +1,14 @@
-== Orion Context Broker LD (the brain)
+:filename: index.adoc
+//
+// ===========================
+:doctype: book
+:Date: {DATE}
+:Revision: 0.0.1
+:Author: Fesa Roti
+:icons: font
 
-If you want to have a fiware platform you have to use the Orion Context Broker. Every data which is coming into the platform or coming from the platform comes into the orion context broker. The Orion Context Broker linchpin of the whole platform. The next paragraph explains what a context broker is used for.
+:toc:
 
-[NOTE]
-====
-The CEF Context Broker enables organisations (including but not limited to public administrations) to manage and share data in real-time describing “what is currently happening” within their organisations, in the real world they manage or where they run their daily business processes. Thus, for example, Smart Cities can share information about what is happening in streets (e.g., traffic status, quality of air data, available parking slots, location).  Similarly, a packet delivery service company may share data about orders (e.g., current location and expected delivery time). This information describing what is currently happening is referred as “context information”.
-
-The CEF Context Broker provides the FIWARE NGSI API, which is a RESTful API enabling applications to provide updates and get access to context information. More concretely:
-
-- Update context information, e.g. send updates on air quality data for a given district of the city, weather forecast for a given region or the administrative record created for handling a request issued by a given citizen
-
-- Query context information. The Context Broker stores context information updated from applications, so queries are resolved based on that information.
-
-- Being notified when changes on context information take place (e.g. the air quality in a given street has changed) or with a given frequency (e.g. get measures of the traffic in a street each minute)
-
-- Register context provider systems which can be queried by the Context Broker to get the latest status of context, e.g. a system provided by the national meteorology agency which provides updated weather forecasts upon request
-
-https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/What+is+Context+Broker
-====
-
-A very important aspect of the fiware components is the concept of the `fiware-service` header. You can configure the Orion Context Broker to use a different database for every `fiware-service`. So if you store some data in the orion context broker with an api request and add the header `fiware-service: berlin` the data will be stored in the 'berlin' database. So you are able to separate data inside of the Orion Context Broker. This behaviour is the basis for a multi tenant smart city platform. If you want to test this by yourself follow the following instructions:
-Use the following docker-compose.yml file:
-[source,yaml]
-----
-include::files/docker-compose.yml[docker-compose.yml]
-----
-Check if the Orion Context broker is working properly with the following command:
-[source, bash]
-----
-include::files/get-ocb-version.sh[]
-----
-The response should look like this:
-[source, json]
-----
-include::files/get-ocb-version-response.json[]
-----
-Now let's insert two entities into the Context Broker:
-[source, bash]
-----
-include::files/create-two-entities-different-fiware-service.sh[]
-----
-We just inserted an entity into two different `fiwaer-service`. We inserted one entity into the berlin `fiware-service` and one into the hamburg `fiware-serve`. You can now exec into the mongo container and check the created databases.
-[source, bash]
-----
-include::files/exec-into-mongo-conatiner.sh[]
-----
-And show all databases:
-[source, bash]
-----
-include::files/show-databases-from-mongo.sh[]
-----
-The response will look like the following and you can see that there is a database for the berlin and the hamburg `fiware-service`.
-[source, txt]
-----
-include::files/show-databases-from-mongo-response.txt[]
-----
-The `orion` database is for an empty `fiware-service`. For more examples and further reading click at this link: https://fiware-academy.readthedocs.io/en/latest/core/orion-ld/index.html
+// Orion Context Broker LD
+include::./orion-ld/index.adoc[]
 
