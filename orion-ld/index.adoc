@@ -1,5 +1,5 @@
-== Orion Context Broker LD (the brain)
-[[orion]]
+== Orion Context Broker LD
+
 If you want to have a {platform-name} you have to use the Orion Context Broker. Every data which is coming into the platform comes into the orion context broker. The Orion Context Broker linchpin of the whole platform.
 [NOTE]
 ====
