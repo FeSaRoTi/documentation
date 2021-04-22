@@ -1,14 +1,14 @@
 :filename: index.adoc
 //
 // ===========================
-:doctype: book
-:Date: {DATE}
 :Revision: 0.0.1
 :Author: Fesa Roti
 :icons: font
 
-:toc:
+:toc: left
 
+// include attributes
+include::./attributes.adoc[]
 // Orion Context Broker LD
 include::./orion-ld/index.adoc[]
 
