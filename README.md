@@ -1,4 +1,4 @@
-The whole documentation is published [here](https://fesaroti.github.io/documentation/#_orion_context_broker_ld_the_brain)
+The whole documentation is published [here](https://fesaroti.github.io/documentation)
 
 ## TODOS
 - [ ] Kind 
@@ -16,3 +16,4 @@ The whole documentation is published [here](https://fesaroti.github.io/documenta
 - [ ] Database Setup
 - [ ] AWS setup
 - [ ] RPI setup
+- [ ] Reveal.js transformation
