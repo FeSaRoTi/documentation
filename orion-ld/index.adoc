@@ -1,7 +1,6 @@
 == Orion Context Broker LD (the brain)
 [[orion]]
 If you want to have a {platform-name} you have to use the Orion Context Broker. Every data which is coming into the platform comes into the orion context broker. The Orion Context Broker linchpin of the whole platform.
-
 [NOTE]
 ====
 The CEF Context Broker enables organisations (including but not limited to public administrations) to manage and share data in real-time describing “what is currently happening” within their organisations, in the real world they manage or where they run their daily business processes. Thus, for example, Smart Cities can share information about what is happening in streets (e.g., traffic status, quality of air data, available parking slots, location).  Similarly, a packet delivery service company may share data about orders (e.g., current location and expected delivery time). This information describing what is currently happening is referred as “context information”.
@@ -15,8 +14,10 @@ The CEF Context Broker provides the FIWARE NGSI API, which is a RESTful API enab
 
 https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/What+is+Context+Broker
 ====
-A very important aspect of the fiware components is the concept of the `fiware-service` header. You can configure the Orion Context Broker to use a different database for every `fiware-service`. So if you store some data in the orion context broker with an api request and add the header `fiware-service: berlin` the data will be stored in the 'berlin' database. So you are able to separate data inside of the Orion Context Broker. This behaviour is the basis for a multi tenant smart city platform. If you want to test this by yourself follow the following instructions:
-Use the following docker-compose.yml file:
+
+A very important aspect of the fiware components is the concept of the `fiware-service` header. You can configure the Orion Context Broker to use a different database for every `fiware-service`. So if you store some data in the orion context broker with an api request and add the header `fiware-service: berlin` the data will be stored in the 'berlin' database. So you are able to separate data inside of the Orion Context Broker. This behaviour is the basis for a multi tenant smart city platform.
+// tag::hands-on[]
+=== Hands on
 [source,yaml]
 ----
 include::files/docker-compose.yml[docker-compose.yml]
@@ -52,4 +53,5 @@ The response will look like the following and you can see that there is a databa
 include::files/show-databases-from-mongo-response.txt[]
 ----
 NOTE: The `orion` database is for an empty `fiware-service`. For more examples and further reading check this link: https://fiware-academy.readthedocs.io/en/latest/core/orion-ld/index.html
+// end::hands-on[]
 
