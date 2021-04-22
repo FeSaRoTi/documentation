@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
-<title>Orion Context Broker LD (the brain)</title>
+<meta name="author" content="Fesa Roti">
+<title>FeSaRoTi</title>
 <style>
 @import url(//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.css);
 /* normalize.css v2.1.1 | MIT License | git.io/normalize */
@@ -655,17 +656,24 @@ table.tableblock.grid-all th.tableblock, table.tableblock.grid-all td.tableblock
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
+<h1>FeSaRoTi</h1>
+<div class="details">
+<span id="author" class="author">Fesa Roti</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_orion_context_broker_ld_the_brain">Orion Context Broker LD (the brain)</a></li>
+<ul class="sectlevel2">
+<li><a href="#_hands_on">Hands on</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_orion_context_broker_ld_the_brain">Orion Context Broker LD (the brain)</h2>
+<div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>What are we doing?
+== Orion Context Broker LD (the brain)</p>
+</div>
 <div id="orion" class="paragraph">
 <p>If you want to have a Smart City Platform you have to use the Orion Context Broker. Every data which is coming into the platform comes into the orion context broker. The Orion Context Broker linchpin of the whole platform.</p>
 </div>
@@ -706,9 +714,12 @@ table.tableblock.grid-all th.tableblock, table.tableblock.grid-all td.tableblock
 </table>
 </div>
 <div class="paragraph">
-<p>A very important aspect of the fiware components is the concept of the <code>fiware-service</code> header. You can configure the Orion Context Broker to use a different database for every <code>fiware-service</code>. So if you store some data in the orion context broker with an api request and add the header <code>fiware-service: berlin</code> the data will be stored in the 'berlin' database. So you are able to separate data inside of the Orion Context Broker. This behaviour is the basis for a multi tenant smart city platform.
-=== Hands on</p>
+<p>A very important aspect of the fiware components is the concept of the <code>fiware-service</code> header. You can configure the Orion Context Broker to use a different database for every <code>fiware-service</code>. So if you store some data in the orion context broker with an api request and add the header <code>fiware-service: berlin</code> the data will be stored in the 'berlin' database. So you are able to separate data inside of the Orion Context Broker. This behaviour is the basis for a multi tenant smart city platform.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hands_on">Hands on</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">version: "3.9"
@@ -822,10 +833,9 @@ The <code>orion</code> database is for an empty <code>fiware-service</code>. For
 </div>
 </div>
 </div>
-</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-22 18:26:51 UTC
+Last updated 2021-04-22 18:31:15 UTC
 </div>
 </div>
 </body>

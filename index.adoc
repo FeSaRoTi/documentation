@@ -10,6 +10,8 @@
 
 // include attributes
 include::./attributes.adoc[]
+// include introduction
+include::./introduction.adoc[]
 // Orion Context Broker LD
 include::./orion-ld/index.adoc[]
 

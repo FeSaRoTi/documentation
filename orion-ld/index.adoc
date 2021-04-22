@@ -16,6 +16,7 @@ https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/What+is+Context+Broker
 ====
 
 A very important aspect of the fiware components is the concept of the `fiware-service` header. You can configure the Orion Context Broker to use a different database for every `fiware-service`. So if you store some data in the orion context broker with an api request and add the header `fiware-service: berlin` the data will be stored in the 'berlin' database. So you are able to separate data inside of the Orion Context Broker. This behaviour is the basis for a multi tenant smart city platform.
+
 // tag::hands-on[]
 === Hands on
 [source,yaml]
