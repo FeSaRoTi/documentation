@@ -9,7 +9,7 @@
 :stylesheet: adoc-readthedocs.css
 
 = FeSaRoTi Documentation
-Doc Writer <FeSaRoTi@gmail.com>
+Doc Writer <82838857+SmartFeSaRoTi@users.noreply.github.com>
 v0.0.1, 2021-04-22
 
 // include attributes
