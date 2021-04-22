@@ -8,6 +8,9 @@
 :toc: left
 :stylesheet: adoc-readthedocs.css
 
+= FeSaRoTi Documentation
+Doc Writer <FeSaRoTi@gmail.com>
+v0.0.1, 2021-04-22
 // include attributes
 include::./attributes.adoc[]
 // include introduction
