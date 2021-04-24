@@ -661,7 +661,7 @@ table.tableblock.grid-all th.tableblock, table.tableblock.grid-all td.tableblock
 <span id="author" class="author">Fesa Roti</span><br>
 <span id="email" class="email"><a href="mailto:82838857+SmartFeSaRoTi@users.noreply.github.com">82838857+SmartFeSaRoTi@users.noreply.github.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2021-04-22</span>
+<span id="revdate">2021-04-24</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -688,7 +688,7 @@ table.tableblock.grid-all th.tableblock, table.tableblock.grid-all td.tableblock
 <h2 id="_orion_context_broker_ld">Orion Context Broker LD</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you want to have a Smart City Platform you have to use the Orion Context Broker. Every data which is coming into the platform comes into the orion context broker. The Orion Context Broker linchpin of the whole platform.</p>
+<p>If you want to have a Smart City Platform you have to use the Orion Context Broker LD. Every data which is coming into the platform comes into the Orion Context Broker LD. The Orion Context Broker LD is the center of the whole platform. Before you can start doing anything with the data from the sensors, it has to be harmonized and stored in one place and this place is the Orion Context Broker LD.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -698,7 +698,7 @@ table.tableblock.grid-all th.tableblock, table.tableblock.grid-all td.tableblock
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The CEF Context Broker enables organisations (including but not limited to public administrations) to manage and share data in real-time describing “what is currently happening” within their organisations, in the real world they manage or where they run their daily business processes. Thus, for example, Smart Cities can share information about what is happening in streets (e.g., traffic status, quality of air data, available parking slots, location).  Similarly, a packet delivery service company may share data about orders (e.g., current location and expected delivery time). This information describing what is currently happening is referred as “context information”.</p>
+<p>The CEF Context Broker enables organisations (including but not limited to public administrations) to manage and share data in real-time describing "what is currently happening" within their organisations, in the real world they manage or where they run their daily business processes. Thus, for example, Smart Cities can share information about what is happening in streets (e.g., traffic status, quality of air data, available parking slots, location).  Similarly, a packet delivery service company may share data about orders (e.g., current location and expected delivery time). This information describing what is currently happening is referred as “context information”.</p>
 </div>
 <div class="paragraph">
 <p>The CEF Context Broker provides the FIWARE NGSI API, which is a RESTful API enabling applications to provide updates and get access to context information. More concretely:</p>
@@ -727,7 +727,22 @@ table.tableblock.grid-all th.tableblock, table.tableblock.grid-all td.tableblock
 </table>
 </div>
 <div class="paragraph">
-<p>A very important aspect of the fiware components is the concept of the <code>fiware-service</code> header. You can configure the Orion Context Broker to use a different database for every <code>fiware-service</code>. So if you store some data in the orion context broker with an api request and add the header <code>fiware-service: berlin</code> the data will be stored in the 'berlin' database. So you are able to separate data inside of the Orion Context Broker. This behaviour is the basis for a multi tenant smart city platform.</p>
+<p>If you want to store some data into the Orion Context Broker LD, the first place where you have to look at is the <a href="https://www.fiware.org/developers/smart-data-models/">Smart Data Models collection</a>. This is a collection of data models for many different use cases.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Do not create your own data models, because there is already a large selection of data models which you can choose one. If you can&#8217;t find a model that fits to your requirements make a pull request with your data model.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A very important aspect of the fiware components is the concept of the <code>fiware-service</code> header. You can configure the Orion Context Broker LD to use a different database for every <code>fiware-service</code>. So if you store some data in the Orion Context Broker LD with an api request and add the header <code>fiware-service: berlin</code> the data will be stored in the <strong>berlin</strong> database. So you are able to separate data inside of the Orion Context Broker LD. This behaviour is the basis for a multi tenant smart city platform.</p>
 </div>
 <div class="sect2">
 <h3 id="_hands_on">Hands on</h3>
@@ -752,7 +767,7 @@ services:
 </div>
 </div>
 <div class="paragraph">
-<p>Check if the Orion Context broker is working properly with the following command:</p>
+<p>Check if the Orion Context Broker LD is working properly with the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -849,7 +864,7 @@ The <code>orion</code> database is for an empty <code>fiware-service</code>. For
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2021-04-22 18:49:14 UTC
+Last updated 2021-04-24 15:08:34 UTC
 </div>
 </div>
 </body>

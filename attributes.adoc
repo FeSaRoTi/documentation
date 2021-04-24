@@ -1,1 +1,4 @@
 :platform-name: Smart City Platform
+:orion: Orion Context Broker LD
+:smart-data-models-collection: https://www.fiware.org/developers/smart-data-models/[Smart Data Models collection]
+:pull-request: pull request

@@ -10,10 +10,11 @@
 
 = FeSaRoTi Documentation
 Doc Writer <82838857+SmartFeSaRoTi@users.noreply.github.com>
-v0.0.1, 2021-04-22
+v0.0.1, {localdate}
 
 // include attributes
 include::./attributes.adoc[]
+
 // include introduction
 include::./introduction.adoc[]
 
