@@ -21,6 +21,7 @@ If you want to store some data into the {orion}, the first place where you have 
 TIP: Do not create your own data models, because there is already a large selection of data models which you can choose one. If you can't find a model that fits to your requirements make a {pull-request} with your data model.
 // end::theorie[]
 
+
 A very important aspect of the fiware components is the concept of the `fiware-service` header. You can configure the {orion} to use a different database for every `fiware-service`. So if you store some data in the {orion} with an api request and add the header `fiware-service: berlin` the data will be stored in the *berlin* database. So you are able to separate data inside of the {orion}. This behaviour is the basis for a multi tenant smart city platform.
 
 // tag::hands-on[]
