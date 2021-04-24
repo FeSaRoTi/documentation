@@ -1,9 +1,10 @@
-== Orion Context Broker LD
+== {orion}
 
-If you want to have a {platform-name} you have to use the Orion Context Broker. Every data which is coming into the platform comes into the orion context broker. The Orion Context Broker linchpin of the whole platform.
+If you want to have a {platform-name} you have to use the {orion}. Every data which is coming into the platform comes into the {orion}. The {orion} is the center of the whole platform. Before you can start doing anything with the data from the sensors, it has to be harmonized and stored in one place and this place is the {orion}.
+// tag::theorie[]
 [NOTE]
 ====
-The CEF Context Broker enables organisations (including but not limited to public administrations) to manage and share data in real-time describing “what is currently happening” within their organisations, in the real world they manage or where they run their daily business processes. Thus, for example, Smart Cities can share information about what is happening in streets (e.g., traffic status, quality of air data, available parking slots, location).  Similarly, a packet delivery service company may share data about orders (e.g., current location and expected delivery time). This information describing what is currently happening is referred as “context information”.
+The CEF Context Broker enables organisations (including but not limited to public administrations) to manage and share data in real-time describing "what is currently happening" within their organisations, in the real world they manage or where they run their daily business processes. Thus, for example, Smart Cities can share information about what is happening in streets (e.g., traffic status, quality of air data, available parking slots, location).  Similarly, a packet delivery service company may share data about orders (e.g., current location and expected delivery time). This information describing what is currently happening is referred as “context information”.
 
 The CEF Context Broker provides the FIWARE NGSI API, which is a RESTful API enabling applications to provide updates and get access to context information. More concretely:
 
@@ -15,43 +16,95 @@ The CEF Context Broker provides the FIWARE NGSI API, which is a RESTful API enab
 https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/What+is+Context+Broker
 ====
 
-A very important aspect of the fiware components is the concept of the `fiware-service` header. You can configure the Orion Context Broker to use a different database for every `fiware-service`. So if you store some data in the orion context broker with an api request and add the header `fiware-service: berlin` the data will be stored in the 'berlin' database. So you are able to separate data inside of the Orion Context Broker. This behaviour is the basis for a multi tenant smart city platform.
+If you want to store some data into the {orion}, the first place where you have to look at is the {smart-data-models-collection}. This is a collection of data models for many different use cases. 
+
+TIP: Do not create your own data models, because there is already a large selection of data models which you can choose one. If you can't find a model that fits to your requirements make a {pull-request} with your data model.
+// end::theorie[]
+
+A very important aspect of the fiware components is the concept of the `fiware-service` header. You can configure the {orion} to use a different database for every `fiware-service`. So if you store some data in the {orion} with an api request and add the header `fiware-service: berlin` the data will be stored in the *berlin* database. So you are able to separate data inside of the {orion}. This behaviour is the basis for a multi tenant smart city platform.
 
 // tag::hands-on[]
 === Hands on
+
 [source,yaml]
 ----
-include::files/docker-compose.yml[docker-compose.yml]
+version: "3.9"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:3.4
+    command: --nojournal
+  orion:
+    image: fiware/orion-ld
+    links:
+      - mongo
+    ports:
+      - "1026:1026"
+    environment:
+      - ORIONLD_MONGO_HOST=mongo
+      - ORIONLD_DISABLE_FILE_LOG=TRUE
+      - ORIONLD_MULTI_SERVICE=TRUE
 ----
-Check if the Orion Context broker is working properly with the following command:
+Check if the {orion} is working properly with the following command:
 [source, bash]
 ----
-include::files/get-ocb-version.sh[]
+curl http://localhost:1026/version
 ----
 The response should look like this:
 [source, json]
 ----
-include::files/get-ocb-version-response.json[]
+{
+  "orionld version": "post-v0.7",
+  "orion version":   "1.15.0-next",
+  "uptime":          "0 d, 0 h, 0 m, 18 s",
+  "git_hash":        "nogitversion",
+  "compile_time":    "Thu Mar 25 14:25:20 UTC 2021",
+  "compiled_by":     "root",
+  "compiled_in":     "buildkitsandbox",
+  "release_date":    "Thu Mar 25 14:25:20 UTC 2021",
+  "doc":             "https://fiware-orion.readthedocs.org/en/master/"
+}
 ----
 Now let's insert two entities into the Context Broker:
 [source, bash]
 ----
-include::files/create-two-entities-different-fiware-service.sh[]
+curl -X POST http://localhost:1026/ngsi-ld/v1/entities -H 'content-type: application/ld+json' -H 'fiware-service: hamburg' --data '{
+    "id": "urn:ngsi-ld:Building:store001",
+    "type": "Building",
+    "@context": [
+        "https://fiware.github.io/data-models/context.jsonld",
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
+    ]
+}'
+
+curl -X POST http://localhost:1026/ngsi-ld/v1/entities -H 'content-type: application/ld+json' -H 'fiware-service: berlin' --data '{
+    "id": "urn:ngsi-ld:Building:store001",
+    "type": "Building",
+    "@context": [
+        "https://fiware.github.io/data-models/context.jsonld",
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
+    ]
+}'
 ----
 We just inserted an entity into two different `fiware-service`. We inserted one entity into the berlin `fiware-service` and one into the hamburg `fiware-serve`. You can now exec into the mongo container and check the created databases.
 [source, bash]
 ----
-include::files/exec-into-mongo-conatiner.sh[]
+docker exec -it mongo bash
 ----
 And show all databases:
 [source, bash]
 ----
-include::files/show-databases-from-mongo.sh[]
+mongo
+show dbs
 ----
 The response will look like the following and you can see that there is a database for the berlin and the hamburg `fiware-service`.
 [source, txt]
 ----
-include::files/show-databases-from-mongo-response.txt[]
+admin          0.000GB
+local          0.000GB
+orion          0.000GB
+orion-berlin   0.000GB
+orion-hamburg  0.000GB
 ----
 NOTE: The `orion` database is for an empty `fiware-service`. For more examples and further reading check this link: https://fiware-academy.readthedocs.io/en/latest/core/orion-ld/index.html
 // end::hands-on[]
